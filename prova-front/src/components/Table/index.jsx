@@ -1,6 +1,38 @@
 import React from 'react';
 import api from '../../api';
 import { useState, useEffect } from 'react';
+import styled from 'styled-components';
+
+const Table1 = styled.table`
+  
+    width: 100%;
+    border-spacing: 0 0.5rem;
+    color: #51535c;
+
+    th {
+        background: #fff;
+
+        font-weight: normal;
+        padding: 20px;
+        text-align: left;
+    }
+
+    tr {
+        opacity: 0.7;
+
+        &:hover{
+            opacity: 1;
+        }
+
+
+        td {
+            background: #fff;
+            padding: 20px;
+        }
+    }
+
+`;
+
 
 
 const Table = () => {
@@ -21,7 +53,7 @@ const Table = () => {
 
     return (
         <>
-            <table>
+            <Table1>
                 <thead>
                     <tr>
                         <th>E-mail</th>
@@ -38,7 +70,7 @@ const Table = () => {
                    ))}
 
                 </tbody>
-            </table>
+            </Table1>
         </>
     );
 }
