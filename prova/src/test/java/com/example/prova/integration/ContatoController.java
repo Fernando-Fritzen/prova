@@ -24,6 +24,7 @@ public class ContatoController {
     ContatoRepository contatoRepository;
 
     Contato contato = new Contato(null, "teste", "teste@gmail.com", "45998450505");
+    Contato contato1 = new Contato(60L, "teste", "teste25@gmail.com", "45998440505");
 
     @Test
     public void testAddContatoWithExistingEmail() {
@@ -32,6 +33,14 @@ public class ContatoController {
                 .postForEntity("http://localhost:" + port + "/contatos", contato, Contato.class);
 
         Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void testAddContato() {
+        ResponseEntity<Contato> responseEntity = this.restTemplate
+                .postForEntity("http://localhost:" + port + "/contatos", contato1, Contato.class);
+
+        Assertions.assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
     @Test
