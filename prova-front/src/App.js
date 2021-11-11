@@ -32,8 +32,26 @@ const Container = styled.div`
   }
 
   form {
+    width: min(80%, 1250px);
     margin: 0 auto;
     margin-top: 40px;
+    
+
+    input {
+      width: 45%;
+      padding: 10px;
+    }
+
+    button {
+      width: 80%;
+      margin-top: 20px;
+      padding: 15px;
+    }
+  }
+
+  #contatoId {
+    width: min(85%, 1250px);
+    margin: 50px auto;
   }
 `;
 
@@ -58,6 +76,7 @@ function App() {
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [telefone, setTelefone] = useState("");
+    const [contato, setContato] = useState([]);
 
     function handleSubmit(event) {
         const novoContato = {
@@ -73,6 +92,15 @@ function App() {
                 window.location.reload();
             })
 
+    }
+
+    function findById(e) {
+      axios.get(`http://localhost:8080/contatos/${id}`)
+      .then((response) => {
+        setContato(response.data);
+        console.log(contato)
+      })
+      e.preventDefault();
     }
 
     const handleChangeNome = (e) => {
@@ -109,6 +137,18 @@ function App() {
         <input type="text" placeholder="Telefone" onChange={handleChangeTelefone} value={telefone} />
         <button>Editar</button>
       </form>
+
+      <form onSubmit={findById}>
+        <h2>Informe um Id para buscar o contato respectivo</h2>
+        <input type="number" placeholder="Id" onChange={value => setId(value.target.value)} value={id} />
+        <button>Buscar</button>
+      </form>
+      <div id="contatoId">
+        <h3>Contato selecionado:</h3>
+        <p>Nome: {contato.nome}</p>
+        <p>E-mail: {contato.email}</p>
+        <p>Telefone: {contato.telefone}</p>
+      </div>
       <Modal show={show} close={close} />
     </Container>
   );

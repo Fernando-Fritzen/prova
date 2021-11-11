@@ -3,7 +3,6 @@ import api from '../../api';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { MdModeEdit, MdDelete } from "react-icons/md"
-import ModalEdit from '../ModalEdit';
 import axios from 'axios';
 
 const Table1 = styled.table`
@@ -93,7 +92,6 @@ const Table = () => {
 
                 </tbody>
             </Table1>
-            <ModalEdit show={show} close={close} id={idContato} />
         </>
     );
 }
