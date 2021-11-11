@@ -2,6 +2,7 @@ import './App.css';
 import styled from 'styled-components';
 import Table from './components/Table';
 import Modal from './components/Modal';
+import axios from 'axios';
 
 import { useState } from 'react';
 
@@ -29,6 +30,11 @@ const Container = styled.div`
       border-radius: 8px;
     }
   }
+
+  form {
+    margin: 0 auto;
+    margin-top: 40px;
+  }
 `;
 
 const Header = styled.header`
@@ -48,6 +54,38 @@ function App() {
   const [show, setShow] = useState(false);
   const close = () => setShow(false);
 
+    const [id, setId] = useState();
+    const [nome, setNome] = useState("");
+    const [email, setEmail] = useState("");
+    const [telefone, setTelefone] = useState("");
+
+    function handleSubmit(event) {
+        const novoContato = {
+            nome: nome,
+            email: email,
+            telefone: telefone
+        }
+
+        event.preventDefault();
+        
+        axios.put(`http://localhost:8080/contatos/${id}`, novoContato)
+            .then((response) => {
+                window.location.reload();
+            })
+
+    }
+
+    const handleChangeNome = (e) => {
+        setNome(e.target.value);
+    }
+    
+    const handleChangeEmail = (e) => {
+        setEmail(e.target.value);
+    }
+    
+    const handleChangeTelefone = (e) => {
+        setTelefone(e.target.value);
+    }
 
   return (
     <Container>
@@ -62,6 +100,15 @@ function App() {
 
         <Table />
       </div>
+
+      <form onSubmit={handleSubmit}>
+        <h2>Informe um id e edite os dados</h2>
+        <input type="number" placeholder="Id" onChange={value => setId(value.target.value)} value={id} />
+        <input type="text" placeholder="Nome" onChange={handleChangeNome} value={nome} />
+        <input type="text" placeholder="Email" onChange={handleChangeEmail} value={email} />
+        <input type="text" placeholder="Telefone" onChange={handleChangeTelefone} value={telefone} />
+        <button>Editar</button>
+      </form>
       <Modal show={show} close={close} />
     </Container>
   );

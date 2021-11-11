@@ -14,8 +14,9 @@ const Container = styled.div`
     z-index: 99;
 
     #modal {
+        
         width: 550px;
-        height: 300px;
+        height: 600px;
         margin: 0 auto;
         background: #FFF;
         padding: 30px;
@@ -37,24 +38,25 @@ const Container = styled.div`
 
     form {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
+        align-items: center;
 
         div {
             display: flex;
             flex-direction: column;
-            width: 45%;
+            width: 80%;
             margin-top: 45px;
 
             input {
+                width: 100%;
                 padding: 10px;
                 margin-top: 5px;
             }
         }
 
         button {
-            position: absolute;
-            bottom: 40px;
-            right: 35px;
+            width: 80%;
+            margin-top: 40px;
             padding: 15px;
             background: #2d4a22;
             color: #FFF;
@@ -67,12 +69,13 @@ const Container = styled.div`
 
 function Modal({ show, close }) {
 
-
+    const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [telefone, setTelefone] = useState("");
 
     function handleSubmit(event) {
         const novoContato = {
+            nome: nome,
             email: email,
             telefone: telefone
         }
@@ -86,6 +89,9 @@ function Modal({ show, close }) {
 
     }
 
+    const handleChangeNome = (e) => {
+        setNome(e.target.value);
+    }
     
     const handleChangeEmail = (e) => {
         setEmail(e.target.value);
@@ -105,6 +111,12 @@ function Modal({ show, close }) {
               <div id="fechar" onClick={close}>+</div>
 
               <form onSubmit={handleSubmit}>
+
+                  <div>
+                      <label>Nome</label>
+                      <input name="nome" type="text" onChange={handleChangeNome} value={nome}  placeholder="Email" required="required" />
+                  </div>
+
                   <div>
                       <label>Email</label>
                       <input name="email" type="text" onChange={handleChangeEmail} value={email}  placeholder="Email" required="required" />
