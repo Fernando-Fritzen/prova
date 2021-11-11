@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('Deve conter um botão para cadastrar', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const buttonCadastrar = screen.getByRole("button", { name: /Cadastrar novo contato/i });
+
+  expect(buttonCadastrar).toBeInTheDocument();
 });

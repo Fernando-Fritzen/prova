@@ -98,7 +98,7 @@ function App() {
       axios.get(`http://localhost:8080/contatos/${id}`)
       .then((response) => {
         setContato(response.data);
-        console.log(contato)
+        console.log(contato.length)
       })
       e.preventDefault();
     }

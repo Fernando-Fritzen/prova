@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import api from '../../api';
 
 const Container = styled.div`
 
@@ -84,8 +85,18 @@ function Modal({ show, close }) {
         
         axios.post('http://localhost:8080/contatos', novoContato)
             .then((response) => {
-                window.location.reload();
+                if(response.status === 200) {
+                    alert("Cadastro realizado com sucesso!")
+                    window.location.reload()
+                } else {
+                    alert("Email ou telefone já cadastrados")
+                }
             })
+        // const response = await api.post('/contatos', novoContato)
+
+        
+
+
 
     }
 
