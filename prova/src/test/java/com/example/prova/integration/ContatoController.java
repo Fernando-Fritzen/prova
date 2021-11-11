@@ -23,7 +23,7 @@ public class ContatoController {
     @Autowired
     ContatoRepository contatoRepository;
 
-    Contato contato = new Contato(null, "teste@gmail.com", "45998450505");
+    Contato contato = new Contato(null, "teste", "teste@gmail.com", "45998450505");
 
     @Test
     public void testAddContatoWithExistingEmail() {

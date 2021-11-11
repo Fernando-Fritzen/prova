@@ -2,6 +2,9 @@ import React from 'react';
 import api from '../../api';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { MdModeEdit, MdDelete } from "react-icons/md"
+import ModalEdit from '../ModalEdit';
+import axios from 'axios';
 
 const Table1 = styled.table`
   
@@ -19,6 +22,7 @@ const Table1 = styled.table`
 
     tr {
         opacity: 0.7;
+        display: flex;
 
         &:hover{
             opacity: 1;
@@ -37,7 +41,13 @@ const Table1 = styled.table`
 
 const Table = () => {
 
+    const [show, setShow] = useState(false);
+    const close = () => setShow(false);
+
+    const [idContato, setIdContato] = useState();
+
     const [contato, setContato] = useState([]);
+
 
     useEffect(() => { 
 
@@ -51,26 +61,39 @@ const Table = () => {
         buscarContatos();
     }, [])
 
+    function apagar(t) {
+        axios.delete(`http://localhost:8080/contatos/${t}`)
+            .then(window.location.reload())
+
+    } 
+
     return (
         <>
             <Table1>
                 <thead>
                     <tr>
-                        <th>E-mail</th>
-                        <th>Telefone</th>
+                        <th style={{flex:1}}>Nome</th>
+                        <th style={{flex:1}}>E-mail</th>
+                        <th style={{flex:1}}>Telefone</th>
+                        <th style={{width:'70px'}}>Editar</th>
+                        <th style={{width:'70px'}}>Apagar</th>
                     </tr>
                 </thead>
                 <tbody>
 
                     {contato?.map((item) => (
                         <tr key={item.id}>
-                            <td>{item.email}</td>
-                            <td>{item.telefone}</td>
+                            <td style={{flex:1}}>{item.nome}</td>
+                            <td style={{flex:1}}>{item.email}</td>
+                            <td style={{flex:1}}>{item.telefone}</td>
+                            <td style={{width:'70px', cursor:'pointer'}} ><MdModeEdit /></td>
+                            <td style={{width:'70px', cursor:'pointer'}} onClick={() => apagar(item.id)} ><MdDelete /></td>
                         </tr>
                    ))}
 
                 </tbody>
             </Table1>
+            <ModalEdit show={show} close={close} id={idContato} />
         </>
     );
 }

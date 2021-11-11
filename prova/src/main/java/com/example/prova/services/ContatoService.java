@@ -51,6 +51,7 @@ public class ContatoService {
     }
 
     private void updateData(Contato entity, Contato obj) {
+        entity.setNome(obj.getNome());
         entity.setEmail(obj.getEmail());
         entity.setTelefone(obj.getTelefone());
     }

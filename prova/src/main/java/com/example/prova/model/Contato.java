@@ -18,6 +18,8 @@ public class Contato implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String nome;
+
     private String email;
 
     private String telefone;
